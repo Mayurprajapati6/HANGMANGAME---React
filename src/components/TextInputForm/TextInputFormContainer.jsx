@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TextInputForm from "./TextInputForm";
 import { useNavigate } from "react-router-dom";
 
@@ -34,6 +34,22 @@ function TextInputFormContainer() {
             setInputType("password");
         }
     }
+
+    useEffect(() => {
+        console.log("component first load"); // not call on updates
+    },[]); // passing empty dependency array -> effect call only first load 
+
+    useEffect(() => {
+        console.log("component first load and update");
+    }); // not passing dependency array -> every updation time this function  will call
+
+    useEffect( () => {
+        console.log("component first load and update value changed");
+    },[value]); // jab ye value changed/update hogi then this effect call or first call me to hogi call 
+
+    useEffect( () => {
+        console.log("component first load and inputType value changed");
+    },[inputType]);
 
     return (
         <TextInputForm
