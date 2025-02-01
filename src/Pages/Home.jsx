@@ -2,18 +2,21 @@ import { Link } from "react-router-dom";
 import Button from "../components/Button/Button";
 import { useContext, useEffect, useState } from "react";
 import { WordContext } from "../context/WordContext";
+import useWordStore  from "../stores/WordStore";
 
 function Home() {
 
     {/*const [word, setWord] = useState('');*/ }
-    const {  setWordList , setWord} = useContext(WordContext);
+    {/**const {  setWordList , setWord} = useContext(WordContext); */}
+    // const { setWord} = useContext(WordContext);
 
-    async function fetchWords(params) {
+    const { setWordList , setWord} = useWordStore(); // comming from the zustand store
+
+    async function fetchWords() {
         const response = await fetch('http://localhost:3000/Words');
         const data = await response.json();
         console.log(data);
 
-        setWordList([...data]);
 
         const randomIndex = Math.floor(Math.random() * data.length);
         console.log(data[randomIndex]);

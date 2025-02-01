@@ -5,6 +5,8 @@ import LetterButtons from "../components/LetterButtons/LetterButtons";
 import { useContext, useState } from "react";
 import HangMan from "../components/HANGMAN/HangMan";
 import { WordContext } from "../context/WordContext";
+import wordStore from "../stores/WordStore";
+import useWordStore from "../stores/WordStore";
 
 function PlayGame() {
 
@@ -17,7 +19,9 @@ function PlayGame() {
 
     //const { state } = useLocation();
 
-    const { wordList , word } = useContext(WordContext);
+    //const { word } = useContext(WordContext); {/*wordList , word* */}
+
+    const { wordList , word} = useWordStore();
 
     const [guessedLetters , setGuessedLetters] = useState([]);
 
@@ -41,6 +45,11 @@ function PlayGame() {
             {/*<h1>Play Game{text} {id}</h1> */}
             <h1>Play Game </h1> {/*{state.wordSelected}*/ }
             {/*{wordList.map(wordObject => <li key={wordObject.id}>{wordObject.wordValue}</li>)}* for print purpose*/}
+
+            {wordList.map((word) => {
+                return <li key={word.id}>{word.wordValue}</li>
+            })}
+
 
             {word && (
                 <> 
